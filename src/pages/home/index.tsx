@@ -12,7 +12,7 @@ function Home() {
   const [isMuted, setIsMuted] = useState(true); // 控制视频是否静音
 
   const handleVideoEnd = useCallback(() => {
-    // navigate('/map'); 
+    navigate('/map'); 
   }, [navigate]);
 
   const handleVideoReady = useCallback(() => {
@@ -60,22 +60,22 @@ function Home() {
           浏览器不支持视频播放
       </video>
       <div className="content-wrapper">
-        <h1>教育强国</h1>
-        <p>This is a page with a video background.</p>
+        {/* <h1>教育强国</h1> */}
+        {/* <p>教育大国阔步迈向教育强国</p> */}
         {/* 声音控制按钮 */}
         {/* 声音控制按钮，使用图标替换文字 */}
         <button onClick={toggleMute} className="mute-button">
           {isMuted ? (
-            <FontAwesomeIcon icon={faVolumeMute} size="2x" /> // 静音图标
+            <FontAwesomeIcon icon={faVolumeMute} /> // 静音图标
           ) : (
-            <FontAwesomeIcon icon={faVolumeUp} size="2x" />   // 音量图标
+            <FontAwesomeIcon icon={faVolumeUp} />   // 音量图标
           )}
         </button>
 
 
         <button
           className="enter-button"
-          onClick={() => navigate('/next-page')}
+          onClick={handleVideoEnd}
         >
           开始巡礼
         </button>

@@ -17,7 +17,7 @@
 /* 页面内容样式 */
 .content-wrapper {
   position: relative;
-  z-index: 1;
+  z-index: 1; /* 确保内容在视频上方显示 */
   color: white;
   text-align: center;
   width: 100%;
@@ -26,38 +26,63 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: rgba(0, 0, 0, 0.5); /* 半透明背景覆盖 */
+  background-color: rgba(0, 0, 0, 0.1);
 }
-
-h1 {
-  font-size: 48px;
-  margin-bottom: 20px;
-}
-
-p {
-  font-size: 24px;
-  margin-bottom: 40px;
-}
-
-/* 声音控制按钮样式（右上角） */
+/* Mute 按钮的优化，蓝色系主题 */
 .mute-button {
   position: absolute;
   top: 20px;       /* 距离页面顶部 20px */
   right: 20px;     /* 距离页面右侧 20px */
-  padding: 10px 20px;  /* 较大的按钮尺寸 */
-  font-size: 18px;
-  background-color: rgba(0, 0, 0, 0.7);  /* 黑色背景，带点透明感 */
+  padding: 15px;
+  font-size: 24px;
   color: white;
+  background: linear-gradient(135deg, #4a90e2, #007aff); /* 渐变蓝色背景 */
   border: none;
-  border-radius: 50px; /* 圆角按钮 */
+  border-radius: 50%; /* 圆形按钮 */
   cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.3s ease; /* 动态效果 */
-  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2); /* 添加阴影 */
+  transition: all 0.3s ease;
+  box-shadow: 0px 4px 15px rgba(0, 122, 255, 0.3); /* 蓝色光晕阴影 */
+  outline: none; /* 去掉点击后默认的轮廓 */
+  overflow: hidden;
+  touch-action: manipulation; /* 优化触控行为 */
 }
 
+/* 悬停状态 (仅桌面设备，移动端无效) */
 .mute-button:hover {
-  background-color: rgba(0, 0, 0, 0.9); /* 鼠标悬停时变深 */
+  background: linear-gradient(135deg, #007aff, #4a90e2); /* 渐变方向反转 */
+  box-shadow: 0px 6px 25px rgba(0, 122, 255, 0.6); /* 光晕增强 */
+  transform: translateY(-2px); /* 按钮轻微上浮 */
 }
+
+/* 涌动波纹效果 */
+.mute-button::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 300%;
+  height: 300%;
+  background: rgba(255, 255, 255, 0.2);
+  transform: translate(-50%, -50%) scale(0);
+  border-radius: 50%;
+  transition: all 0.5s;
+}
+
+.mute-button:active::before {
+  transform: translate(-50%, -50%) scale(1);
+  opacity: 0;
+}
+
+/* 针对小屏设备的响应式设计 */
+@media (max-width: 768px) {
+  .mute-button {
+    padding: 12px;
+    font-size: 20px;
+    right: 10px;
+    top: 10px;
+  }
+}
+
 
 
 /* 优化的 enter-button 样式，蓝色系主题 */
@@ -65,21 +90,21 @@ p {
   padding: 15px 40px;
   font-size: 20px;
   font-weight: bold;
+  padding: 15px 40px;
+  font-size: 20px;
+  font-weight: bold;
   color: white;
-  background: linear-gradient(135deg, #4a90e2, #007aff); /* 渐变蓝色 */
+  background: linear-gradient(135deg, #7aa0ff, #4a90e2); /* 浅蓝色渐变 */
   border: none;
   border-radius: 30px;
   cursor: pointer;
   transition: all 0.3s ease;
-  box-shadow: 0px 4px 15px rgba(0, 122, 255, 0.3); /* 蓝色光晕阴影 */
-  position: relative;
-  overflow: hidden;
-  outline: none; /* 去掉移动端点击后的默认轮廓 */
-  touch-action: manipulation; /* 优化移动端的触控行为 */
+  box-shadow: 0px 4px 15px rgba(74, 144, 226, 0.3); /* 柔和蓝色光晕 */
+  outline: none;
+  touch-action: manipulation;
+  position: absolute;
+  bottom: 20vh;
 }
-
-/* 去掉 hover 状态，因为移动端不支持 hover */
-/* 悬停效果在移动端无效，因此我们只保留点击反馈 */
 
 /* 点击时的缩放效果 */
 .enter-button:active {
