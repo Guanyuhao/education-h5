@@ -1,0 +1,80 @@
+/* home.css */
+.home-container {
+  position: relative;
+}
+.home {
+    height: 100vh;
+    position: relative; /* 父容器相对定位 */
+    background-image: url('../../assets/bg1.png');
+    background-size: cover;
+    background-position: center;
+    text-align: center;
+  }
+  .content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    width: 90vw;
+  }
+  
+  h1 {
+    color: #000;
+    font-size: 24px;
+    margin-top: 20px;
+  }
+  
+  /* 按钮样式 */
+  .custom-button {
+    position: absolute;
+    bottom: 30%; /* 距离页面下方30% */
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 15px 30px;
+    background: linear-gradient(45deg, #FF6347, #FFDEAD); /* 从橙红色到浅橙色的渐变 */
+    color: #fff;
+    font-size: 18px;
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(255, 99, 71, 0.6); /* 发光效果 */
+    cursor: pointer;
+    animation: buttonFadeIn 2s ease-out forwards, buttonMoveIn 1s ease-out forwards; /* 动画 */
+  }
+  
+  /* 按钮飞进来的动画效果 */
+  @keyframes buttonMoveIn {
+    0% {
+      transform: translateX(-50%) translateY(100px);
+      opacity: 0;
+    }
+    100% {
+      transform: translateX(-50%) translateY(0);
+      opacity: 1;
+    }
+  }
+  
+  /* 按钮淡入的动画效果 */
+  @keyframes buttonFadeIn {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+  
+  .custom-button:hover {
+    background: linear-gradient(45deg, #FF4500, #FFB90F); /* 按钮悬停变色 */
+    box-shadow: 0 0 20px rgba(255, 99, 71, 1); /* 增强发光效果 */
+  }
+  .map-disabled {
+    pointer-events: none;
+  }
+  .hidden {
+    position: absolute;
+    z-index: -9999;
+    width: 0;
+    height: 0;
+    opacity: 0;
+  }
