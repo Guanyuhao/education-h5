@@ -1,0 +1,76 @@
+/* 顶部导航栏 */
+.top-nav-bar {
+    position: fixed; /* 固定在页面顶部 */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 60px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+    background: rgba(255, 255, 255, 0.1); /* 半透明背景，适配背景颜色 */
+    backdrop-filter: blur(10px); /* 背景模糊处理，科技感 */
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* 阴影效果 */
+    z-index: 10; /* 保证导航栏位于背景元素上层 */
+    box-sizing: border-box;
+  }
+  
+  /* 返回按钮 */
+  .back-button {
+    display: flex;
+    align-items: center;
+    background: transparent;
+    border: none;
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    outline: none;
+    transition: color 0.3s ease;
+  }
+  
+  /* 返回按钮图标和文本 */
+  .back-icon {
+    font-size: 20px;
+    margin-right: 10px;
+    color: #1e90ff; /* 蓝色箭头，和背景搭配 */
+  }
+  
+  .back-text {
+    color: white;
+  }
+  
+  /* 悬停状态 */
+  .back-button:hover .back-text,
+  .back-button:hover .back-icon {
+    color: #4682b4; /* 悬停时变色 */
+  }
+  
+  /* 导航栏标题 */
+  .nav-title {
+    color: white;
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+    letter-spacing: 1px;
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.7); /* 发光文字效果 */
+  }
+  
+  /* 调整为小屏时的导航栏样式 */
+  @media (max-width: 768px) {
+    .top-nav-bar {
+      height: 50px;
+      padding: 0 15px;
+    }
+  
+    .back-button {
+      font-size: 16px;
+    }
+  
+    .nav-title {
+      font-size: 18px;
+    }
+  }
+  

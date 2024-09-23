@@ -1,9 +1,10 @@
 import React, { useRef, useEffect, useState, useCallback } from 'react';
 import * as echarts from "echarts";
-import ReactPlayer from 'react-player'; // 用于播放Vlog视频
 import { ToastContainer, toast } from 'react-toastify';
 import ls from 'localstorage-slim';
 import 'react-toastify/dist/ReactToastify.css';
+import SciFiBackground from '../../components/SciFiBackground';
+
 
 // 省份数据 https://datav.aliyun.com/portal/school/atlas/area_selector
 import geoDate from '../../assets/china.json';
@@ -69,9 +70,9 @@ const Map: React.FC = () => {
           }},
           select: selectStyle,
           label: {
-            show: false, // 显示省份名称
+            show: false,
             emphasis: {
-              show: true,
+              show: false,
             },
           },
           regions: currentWatchedProvinces.map((province) => ({
@@ -96,7 +97,7 @@ const Map: React.FC = () => {
             setShowVideo(false); // 显示视频播放器
             toast('该省份已点亮，请选择其他省份', { 
               type: 'success', 
-              theme: 'dark', 
+              theme: 'light', 
               autoClose: 2000, 
               toastId: 'watchedProvince',
               className: 'custom-toast'
@@ -149,29 +150,31 @@ const Map: React.FC = () => {
   },[]);
 
   return (
-    <div className='container'>
+    <SciFiBackground hasNav>
+      <div className='map-container'>
+        <div ref={mapRef} className="map"/>
+        {watchedProvinces.length > 0 && <button onClick={exportChartAsImage} className='share-button'>
+          分享点亮地图
+        </button>}
+      </div>
       <ToastContainer/>
       {/* 播放视频 */}
       {showVideo && (
           <div className='video-fullscreen'>
-            <ReactPlayer
-              width={"100%"}
-              height={"100%"}
-              // url={`/v-logs/${selectedProvince}.mp4`} // 假设v-log视频文件存储在本地
-              url={`/v-logs/test.mp4`} // 假设v-log视频文件存储在本地
-              playing
+            <video
+              autoPlay
+              playsInline
               controls
-              onEnded={handleVideoEnd} // 监听视频播放完毕事件
-            />
+              // onCanPlayThrough={handleVideoReady} // 视频资源加载完毕
+              onEnded={handleVideoEnd}  
+            >
+              <source src='/v-logs/test.mp4' type="video/mp4" />
+              浏览器不支持视频播放
+            </video>
           </div>
         )}
-        <div ref={mapRef} className="map"/>
       {/* 分享按钮 */}
-      
-      {watchedProvinces.length > 0 && <button onClick={exportChartAsImage} className='share-button'>
-        分享点亮地图
-      </button>}
-    </div>
+    </SciFiBackground>
   );
 };
 
