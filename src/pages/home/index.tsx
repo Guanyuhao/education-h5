@@ -2,7 +2,7 @@ import { useCallback, useState, useRef, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faVolumeMute, faVolumeUp } from '@fortawesome/free-solid-svg-icons'; // 引入图标
-import Loading from '../../components/loading';
+import Loading from '../../components/loading/gifLoading';
 import './index.css'
 
 function Home() {
