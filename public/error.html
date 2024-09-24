@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Page Not Found - 404</title>
+    <style>
+      /* 基础样式，确保页面内容居中 */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body,
+      html {
+        height: 100%;
+        font-family: "Arial", sans-serif;
+        background: linear-gradient(
+          135deg,
+          #e6f7ff,
+          #b3e5fc
+        ); /* 浅蓝渐变背景 */
+        color: #333;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+      }
+
+      .error-page {
+        max-width: 600px;
+        padding: 20px;
+      }
+
+      .error-code {
+        font-size: 120px;
+        font-weight: bold;
+        color: #1e90ff; /* 明亮的蓝色，用于突出显示404 */
+        margin-bottom: 20px;
+        text-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* 轻微阴影，增强立体感 */
+      }
+
+      .error-message {
+        font-size: 24px;
+        font-weight: bold;
+        margin-bottom: 15px;
+      }
+
+      .error-description {
+        font-size: 16px;
+        margin-bottom: 30px;
+        color: #666;
+      }
+
+      .error-actions {
+        display: flex;
+        justify-content: center;
+        gap: 15px;
+      }
+
+      .btn,
+      .btn-secondary {
+        padding: 12px 20px;
+        font-size: 16px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease, transform 0.2s ease;
+      }
+
+      .btn {
+        background-color: #1e90ff;
+        color: white;
+        text-decoration: none;
+      }
+
+      .btn-secondary {
+        background-color: #fff;
+        color: #1e90ff;
+        text-decoration: none;
+        border: 2px solid #1e90ff;
+      }
+
+      .btn:hover,
+      .btn-secondary:hover {
+        transform: translateY(-3px);
+      }
+
+      .btn:active,
+      .btn-secondary:active {
+        transform: translateY(1px);
+      }
+
+      .btn-secondary:hover {
+        background-color: #1e90ff;
+        color: white;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="error-page">
+      <h1 class="error-code">404</h1>
+      <h2 class="error-message">
+        Oops! The page you're looking for can't be found.
+      </h2>
+      <p class="error-description">
+        It seems that the page you're trying to access doesn't exist, has been
+        moved, or is temporarily unavailable.
+      </p>
+
+      <div class="error-actions">
+        <a href="/" class="btn">Go to Homepage</a>
+        <a href="mailto:support@yourdomain.com" class="btn-secondary"
+          >Contact Support</a
+        >
+      </div>
+    </div>
+  </body>
+</html>
