@@ -5,7 +5,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Loading from './components/loading/gifLoading';
 
 import Home from './pages/home';
-import { MapPage } from './router/index';
+import { MapPage, ProvinceVideoListPage } from './router/index';
 import './index.css'
 
 createRoot(document.getElementById('root')!).render(
@@ -16,6 +16,7 @@ createRoot(document.getElementById('root')!).render(
         <Routes>
           <Route path="/" element={<Home />} />  {/* 首页 */}
           <Route path="/map" element={<MapPage />} />  {/* 地图页 */}
+          <Route path="/list" element={<ProvinceVideoListPage />} />  {/* 地图页 */}
         </Routes>
       </BrowserRouter>
     </Suspense>
