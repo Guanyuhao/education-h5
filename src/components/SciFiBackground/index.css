@@ -136,3 +136,17 @@
     opacity: 0;
   }
 }
+
+
+/* 彩旗飘动背景 */
+/* .flag-bg {
+  position: absolute;
+  width: 100vw;
+  height: 180px;
+  z-index: 1;
+  left: 0;
+  top: 100px;
+  background-image: url('../../assets/flag.gif');
+  background-size: cover;
+  background-position: center;
+} */

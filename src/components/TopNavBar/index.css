@@ -23,7 +23,7 @@
     align-items: center;
     background: transparent;
     border: none;
-    color: white;
+    color: #1e90ff;
     font-size: 18px;
     font-weight: bold;
     cursor: pointer;
@@ -36,10 +36,6 @@
     font-size: 20px;
     margin-right: 10px;
     color: #1e90ff; /* 蓝色箭头，和背景搭配 */
-  }
-  
-  .back-text {
-    color: white;
   }
   
   /* 悬停状态 */

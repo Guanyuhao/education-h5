@@ -76,6 +76,7 @@ const SciFiBackground: React.FC<SciFiBackgroundProps> = ({ children, hasNav }) =
           />
         ))}
       </div>
+      {/* <div className='flag-bg'></div> */}
     </div>
   );
 };

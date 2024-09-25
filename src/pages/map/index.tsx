@@ -41,7 +41,9 @@ const Map: React.FC = () => {
           areaColor: '#5083fb', // 已观看省份颜色
         },
         label: {
-          show: false,
+          show: true,
+          // 暖黄色 #ff9900
+          color: '#ff9900',
         }
       }
       const option = {
@@ -61,6 +63,8 @@ const Map: React.FC = () => {
           selectedMode: 'multiple', // 多选模式
           map: 'china', // 使用中国地图
           roam: true, // 开启缩放和平移
+          zoom: 5,  // 初始缩放级别，5 是放大的效果
+          center: [116.4074, 39.9042],  // 北京市的经纬度
           itemStyle: {
             normal: {
               areaColor: '#f0f0f0',  // 默认省份颜色
@@ -71,6 +75,8 @@ const Map: React.FC = () => {
           select: selectStyle,
           label: {
             show: true,
+            // 灰色
+            color: '#666',
             emphasis: {
               show: false,
             },
