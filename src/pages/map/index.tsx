@@ -70,7 +70,7 @@ const Map: React.FC = () => {
           }},
           select: selectStyle,
           label: {
-            show: false,
+            show: true,
             emphasis: {
               show: false,
             },

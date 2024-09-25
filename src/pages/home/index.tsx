@@ -15,12 +15,24 @@ function Home() {
     navigate('/map'); 
   }, [navigate]);
 
-  const handleVideoReady = useCallback(() => {
-    setIsLoading(false); // 视频加载完毕，关闭加载动画 loading
+  const handlePageInitVideoPlay = useCallback(() => {
     if (videoRef.current) {
-      videoRef.current.play();
+      const videoPromise = videoRef.current.play();
+      videoPromise.then(() => {
+        console.log('视频播放成功');
+        setIsMuted(false); // 视频播放成功，取消静音
+      })
+      .catch(err => {
+        console.log('视频播放失败', err);
+      })
     }
-  },[])
+  },[videoRef]);
+
+  const handleVideoReady = useCallback(() => {
+    console.log('视频加载完毕');
+    setIsLoading(false); // 视频加载完毕，关闭加载动画 loading
+    handlePageInitVideoPlay();
+  },[handlePageInitVideoPlay])
 
   useEffect(() => {
     if (videoRef.current) {
@@ -41,20 +53,55 @@ function Home() {
       videoRef.current.muted = !isMuted;
       setIsMuted(!isMuted);
     }
-  }, [isMuted]); 
+  }, [isMuted]);
+
+  useEffect(() => {
+    // const vConsole = new window.VConsole();
+    // 检测微信浏览器环境
+    if (typeof window !== 'undefined' && typeof window.navigator !== 'undefined') {
+      const userAgent = window.navigator.userAgent.toLowerCase();
+      const isWeChat = /micromessenger/.test(userAgent);
+       // 监听 WeixinJSBridgeReady 事件
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-expect-error
+      const WeixinJSBridge = window.WeixinJSBridge
+      if (isWeChat && typeof window !== 'undefined' && typeof WeixinJSBridge !== 'undefined') {
+        // 微信浏览器，使用 WeixinJSBridge 处理
+
+        WeixinJSBridge.invoke("getNetworkType", {}, function(){
+          handlePageInitVideoPlay?.();
+        });
+        document.addEventListener('WeixinJSBridgeReady', handlePageInitVideoPlay, false);
+      } else {
+        // 非微信浏览器，直接处理
+        handlePageInitVideoPlay?.();
+      }
+    }
+    return () => {
+      // vConsole.destroy();
+      // 清除事件监听器
+      document.removeEventListener('WeixinJSBridgeReady', handlePageInitVideoPlay);
+    };
+  }, [handlePageInitVideoPlay])
+
+  
 
   return (
     <div className='home-page'>
       {isLoading && <Loading />}
-        <video
+      <video
           ref={videoRef}
           className="background-video"
           autoPlay
-          muted={isMuted} // 通过 isMuted 状态控制是否静音
+          muted={isMuted}
           loop
           playsInline
+          x5-video-player-type="h5"
+          webkit-playsinline="true"
+          x-webkit-airplay="true"
+          x5-video-player-fullscreen="true"
           onCanPlayThrough={handleVideoReady} // 视频资源加载完毕
-          onEnded={handleVideoEnd}          // 视频播放完毕
+          // onEnded={handleVideoEnd}          // 视频播放完毕
         >
           <source src='/video/bg.mp4' type="video/mp4" />
           浏览器不支持视频播放
@@ -71,13 +118,12 @@ function Home() {
             <FontAwesomeIcon icon={faVolumeUp} />   // 音量图标
           )}
         </button>
-
-
         <button
           className="enter-button"
           onClick={handleVideoEnd}
         >
           开始巡礼
+
         </button>
       </div>
     </div>
