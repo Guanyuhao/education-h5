@@ -1,0 +1,152 @@
+/* 外层 div 的科技感动态背景 */
+.sci-fi-background {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  background: linear-gradient(135deg, #e6f7ff, #b3e5fc); /* 浅蓝色系渐变背景 */
+  z-index: 1;
+  text-align: center;
+  color: #333; /* 浅色背景下的深色文字 */
+}
+.context {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+}
+.context.with-nav{
+  padding-top: 60px;
+}
+@media (max-width: 768px){
+  .context.with-nav{
+    padding-top: 50px;
+  }
+}
+/* 背景中动态闪烁的发光点 */
+.sci-fi-background::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(
+    circle,
+    rgba(255, 255, 255, 0.3) 1px,
+    transparent 1px
+  );
+  background-size: 5px 5px; /* 调整发光点大小 */
+  animation: flicker 4s infinite; /* 闪烁动画 */
+  opacity: 0.6;
+}
+
+/* 网格线条效果 */
+.sci-fi-background::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+      to right,
+      rgba(0, 0, 0, 0.05) 1px,
+      transparent 1px
+    ),
+    linear-gradient(to bottom, rgba(0, 0, 0, 0.05) 1px, transparent 1px);
+  background-size: 50px 50px; /* 网格线间距 */
+  animation: moveGrid 15s linear infinite; /* 动态网格动画 */
+  opacity: 0.2;
+}
+
+/* 动态网格移动效果 */
+@keyframes moveGrid {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 100px 100px;
+  }
+}
+
+/* 动态发光点的闪烁效果 */
+@keyframes flicker {
+  0%,
+  100% {
+    opacity: 0.5;
+  }
+  50% {
+    opacity: 0.8;
+  }
+}
+
+
+/* 流星样式 */
+.meteor-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none; /* 流星不影响页面交互 */
+  z-index: -1;
+}
+
+/* 流星基础样式 */
+.meteor {
+  position: absolute;
+  width: 3px;
+  height: 100px;
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0), rgba(255, 255, 255, 1));
+  filter: blur(2px);
+  opacity: 0.7;
+}
+
+/* 向右移动的流星 */
+.meteor.right {
+  animation: meteor-move-right linear infinite;
+}
+
+/* 向左移动的流星 */
+.meteor.left {
+  animation: meteor-move-left linear infinite;
+}
+
+
+/* 向左移动的流星动画 */
+@keyframes meteor-move-left {
+  0% {
+    transform: translateY(0) translateX(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(100vh) translateX(-100vw);
+    opacity: 0;
+  }
+}
+/* 向右移动的流星动画 */
+@keyframes meteor-move-right {
+  0% {
+    transform: translateY(0) translateX(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(100vh) translateX(100vw);
+    opacity: 0;
+  }
+}
+
+
+/* 彩旗飘动背景 */
+/* .flag-bg {
+  position: absolute;
+  width: 100vw;
+  height: 180px;
+  z-index: 1;
+  left: 0;
+  top: 100px;
+  background-image: url('../../assets/flag.gif');
+  background-size: cover;
+  background-position: center;
+} */
