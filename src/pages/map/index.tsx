@@ -2,10 +2,8 @@ import React, { useRef, useEffect, useState, useCallback } from 'react';
 import * as echarts from "echarts";
 import { ToastContainer, toast } from 'react-toastify';
 import ls from 'localstorage-slim';
-import 'react-toastify/dist/ReactToastify.css';
 import SciFiBackground from '../../components/SciFiBackground';
 import AutoVideo from '../../components/AutoVideo';
-
 
 // 省份数据 https://datav.aliyun.com/portal/school/atlas/area_selector
 import geoDate from '../../assets/china.json';
@@ -69,12 +67,16 @@ const Map: React.FC = () => {
           zoom: 5,  // 初始缩放级别，5 是放大的效果
           center: [116.4074, 39.9042],  // 北京市的经纬度
           itemStyle: {
-            normal: {
-              areaColor: '#f0f0f0',  // 默认省份颜色
-            },
-            emphasis: {
-              areaColor: '#94b4ff', // 鼠标悬停省份颜色 淡蓝色 移动端没有
-          }},
+            areaColor: '#f0f0f0',  // 默认省份颜色
+            borderColor: '#fff',  // 省份边框颜色
+            shadowColor: 'rgba(0, 0, 0, 0.5)',  // 设置阴影颜色
+            shadowBlur: 30,  // 模糊程度
+            shadowOffsetX: 0, // 阴影的水平偏移
+            shadowOffsetY: 10, // 阴影的垂直偏移
+          },
+          emphasis: {
+            areaColor: '#94b4ff', // 鼠标悬停省份颜色 淡蓝色 移动端没有
+          },
           select: selectStyle,
           label: {
             show: true,
@@ -92,8 +94,7 @@ const Map: React.FC = () => {
               areaColor: '#5083fb', // 已观看省份颜色
             }
           }))
-        },
-        
+        },        
       };
       // 设置点击事件监听器
       chart.on("click", (params) => {
@@ -163,7 +164,6 @@ const Map: React.FC = () => {
   }, [])
 
   return (
-    
     <>
       <AutoVideo type='map' handleVideoEnd={handleAutoVideoPlayFinished}/>
       <SciFiBackground hasNav hidden={!showMap}>

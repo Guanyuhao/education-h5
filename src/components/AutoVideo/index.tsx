@@ -7,6 +7,9 @@ import {
   useImperativeHandle,
   useEffect,
 } from "react";
+// import { ToastContainer, toast } from 'react-toastify';
+// import 'react-toastify/dist/ReactToastify.css';
+
 import Loading from "../loading";
 import GifLoading from "../loading/gifLoading";
 
@@ -52,11 +55,21 @@ const AutoVideo = forwardRef<AutoVideoHandle, AutoVideoProps>((props, ref) => {
       const videoPromise = videoRef.current.play();
       videoPromise
         .then(() => {
-          console.log("自动播放视频成功");
           setIsMuted(false); // 视频播放成功，取消静音
+          // const ctx = new AudioContext()
+          // const canAutoPlay = ctx.state === 'running'
+          // ctx.close()
+          // if (canAutoPlay) {
+          //   setIsMuted(false); // 视频播放成功，取消静音
+          // } else {
+          //   toast.info("当前浏览器不支持自动播音频，请手动播放", {
+          //     position: 'bottom-center',
+          //     autoClose: 2000,
+          //   });
+          // }
         })
         .catch((err) => {
-          console.log("视频播放失败", err);
+          console.error("自动播放视频成功", err);
         });
     }
   }, [videoRef]);
@@ -69,8 +82,6 @@ const AutoVideo = forwardRef<AutoVideoHandle, AutoVideoProps>((props, ref) => {
       const userAgent = window.navigator.userAgent.toLowerCase();
       const isWeChat = /micromessenger/.test(userAgent);
        // 监听 WeixinJSBridgeReady 事件
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-expect-error
       const WeixinJSBridge = window.WeixinJSBridge
       if (isWeChat && typeof window !== 'undefined' && typeof WeixinJSBridge !== 'undefined') {
         // 微信浏览器，使用 WeixinJSBridge 处理
@@ -126,6 +137,7 @@ const AutoVideo = forwardRef<AutoVideoHandle, AutoVideoProps>((props, ref) => {
         <source src={videoUrl} type="video/mp4" />
         浏览器不支持视频播放
       </video>
+      {/* <ToastContainer/> */}
     </>
   );
 });
