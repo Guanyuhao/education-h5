@@ -55,17 +55,23 @@ const AutoVideo = forwardRef<AutoVideoHandle, AutoVideoProps>((props, ref) => {
       const videoPromise = videoRef.current.play();
       videoPromise
         .then(() => {
-          setIsMuted(false); // 视频播放成功，取消静音
+          console.info("自动播放视频:success");
+          const userAgent = window?.navigator?.userAgent?.toLowerCase();
+          const isWeChat = /micromessenger/.test(userAgent);
+          if (isWeChat) {
+            setIsMuted(false); // 视频播放成功，取消静音
+          }
           // const ctx = new AudioContext()
+          // console.log("ctx:", ctx)
           // const canAutoPlay = ctx.state === 'running'
           // ctx.close()
           // if (canAutoPlay) {
-          //   setIsMuted(false); // 视频播放成功，取消静音
+            // setIsMuted(false); // 视频播放成功，取消静音
           // } else {
-          //   toast.info("当前浏览器不支持自动播音频，请手动播放", {
-          //     position: 'bottom-center',
-          //     autoClose: 2000,
-          //   });
+            // toast.info("当前浏览器不支持自动播音频，请手动播放", {
+            //   position: 'bottom-center',
+            //   autoClose: 2000,
+            // });
           // }
         })
         .catch((err) => {
@@ -87,7 +93,6 @@ const AutoVideo = forwardRef<AutoVideoHandle, AutoVideoProps>((props, ref) => {
       const WeixinJSBridge = window.WeixinJSBridge
       if (isWeChat && typeof window !== 'undefined' && typeof WeixinJSBridge !== 'undefined') {
         // 微信浏览器，使用 WeixinJSBridge 处理
-
         WeixinJSBridge.invoke("getNetworkType", {}, function(){
           handlePageInitVideoPlay?.();
         });
