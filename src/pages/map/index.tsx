@@ -68,7 +68,7 @@ const Map: React.FC = () => {
           center: [116.4074, 39.9042],  // 北京市的经纬度
           itemStyle: {
             areaColor: '#f0f0f0',  // 默认省份颜色
-            borderColor: '#fff',  // 省份边框颜色
+            borderColor: '#000',  // 省份边框颜色
             shadowColor: 'rgba(0, 0, 0, 0.5)',  // 设置阴影颜色
             shadowBlur: 30,  // 模糊程度
             shadowOffsetX: 0, // 阴影的水平偏移

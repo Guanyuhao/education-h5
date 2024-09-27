@@ -34,7 +34,7 @@ const AutoVideo = forwardRef<AutoVideoHandle, AutoVideoProps>((props, ref) => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isMuted, setIsMuted] = useState(true); // 控制视频是否静音
   const { type = "home", handleVideoReady = Fn, handleVideoEnd = Fn, withLoading = true, loadingType = "gif" } = props;
-  const videoUrl = type === "home" ? "/video/bg.mp4" : "/video/map-bg.mp4";
+  const videoUrl = type === "home" ? "/video/bg-720.mp4" : "/video/map-bg.mp4";
 
   const handleVideoLoaded = useCallback(() => {
     setIsLoading(false); // 视频加载完毕，关闭加载动画 loading
