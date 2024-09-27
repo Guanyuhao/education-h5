@@ -5,6 +5,7 @@ import './index.css';
 interface SciFiBackgroundProps {
     children: React.ReactNode
     hasNav?: boolean
+    hidden?: boolean
 }
 
 // 定义流星的属性
@@ -33,7 +34,7 @@ const Meteor: React.FC<MeteorProps> = ({ startX, startY, duration, delay, direct
 };
 
 // SciFiBackground 组件
-const SciFiBackground: React.FC<SciFiBackgroundProps> = ({ children, hasNav }) => {
+const SciFiBackground: React.FC<SciFiBackgroundProps> = ({ children, hasNav, hidden }) => {
   const [meteors, setMeteors] = useState<MeteorProps[]>([]);
 
   useEffect(() => {
@@ -58,7 +59,7 @@ const SciFiBackground: React.FC<SciFiBackgroundProps> = ({ children, hasNav }) =
   }, []);
 
   return (
-    <div className="sci-fi-background">
+    <div className={`sci-fi-background ${hidden? 'hidden': ''}`}>
       <div className={`context ${hasNav ? 'with-nav' : ''}`}>
         {hasNav && <TopNavBar />}
         {children}

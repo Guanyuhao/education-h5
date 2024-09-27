@@ -4,6 +4,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import ls from 'localstorage-slim';
 import 'react-toastify/dist/ReactToastify.css';
 import SciFiBackground from '../../components/SciFiBackground';
+import AutoVideo from '../../components/AutoVideo';
 
 
 // 省份数据 https://datav.aliyun.com/portal/school/atlas/area_selector
@@ -15,6 +16,8 @@ const Map: React.FC = () => {
   const [selectedProvince, setSelectedProvince] = useState<string>(''); // 存储当前点击的省份
   const [watchedProvinces, setWatchedProvinces] = useState<string[]>([]); // 已经观看的省份
   const [showVideo, setShowVideo] = useState<boolean>(false); // 是否显示视频
+  const [showMap, setShowMap] = useState<boolean>(false); // 是否显示视频
+
 
   useEffect(() => {
     const currentWatchedProvinces = ls.get('watchedProvinces') as string[] || [];
@@ -155,8 +158,15 @@ const Map: React.FC = () => {
     }
   },[]);
 
+  const handleAutoVideoPlayFinished = useCallback(() => {
+    setShowMap(true);
+  }, [])
+
   return (
-    <SciFiBackground hasNav>
+    
+    <>
+      <AutoVideo type='map' handleVideoEnd={handleAutoVideoPlayFinished}/>
+      <SciFiBackground hasNav hidden={!showMap}>
       <div className='map-container'>
         <div ref={mapRef} className="map"/>
         {watchedProvinces.length > 0 && <button onClick={exportChartAsImage} className='share-button'>
@@ -181,6 +191,7 @@ const Map: React.FC = () => {
         )}
       {/* 分享按钮 */}
     </SciFiBackground>
+    </>
   );
 };
 

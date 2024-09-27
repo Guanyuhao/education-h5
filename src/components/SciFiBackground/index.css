@@ -9,6 +9,9 @@
   text-align: center;
   color: #333; /* 浅色背景下的深色文字 */
 }
+.hidden {
+  visibility: hidden;
+}
 .context {
   position: relative;
   width: 100%;
