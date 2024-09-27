@@ -82,6 +82,8 @@ const AutoVideo = forwardRef<AutoVideoHandle, AutoVideoProps>((props, ref) => {
       const userAgent = window.navigator.userAgent.toLowerCase();
       const isWeChat = /micromessenger/.test(userAgent);
        // 监听 WeixinJSBridgeReady 事件
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-expect-error
       const WeixinJSBridge = window.WeixinJSBridge
       if (isWeChat && typeof window !== 'undefined' && typeof WeixinJSBridge !== 'undefined') {
         // 微信浏览器，使用 WeixinJSBridge 处理
