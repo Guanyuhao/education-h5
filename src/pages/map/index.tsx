@@ -4,6 +4,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import ls from 'localstorage-slim';
 import SciFiBackground from '../../components/SciFiBackground';
 import AutoVideo from '../../components/AutoVideo';
+import "react-toastify/dist/ReactToastify.css";
 
 // 省份数据 https://datav.aliyun.com/portal/school/atlas/area_selector
 import geoDate from '../../assets/china.json';
@@ -39,12 +40,12 @@ const Map: React.FC = () => {
       const selectStyle = {
         disabled: true, // 禁用选中效果
         itemStyle: {
-          areaColor: '#5083fb', // 已观看省份颜色
+          areaColor: '#f7f7f7', // 已观看省份颜色
         },
         label: {
           show: true,
-          // 暖黄色 #ff9900
-          color: '#ff9900',
+          color: '#666666',
+          fontweight: 'bold',
         }
       }
       const option = {
@@ -67,7 +68,8 @@ const Map: React.FC = () => {
           zoom: 5,  // 初始缩放级别，5 是放大的效果
           center: [116.4074, 39.9042],  // 北京市的经纬度
           itemStyle: {
-            areaColor: '#f0f0f0',  // 默认省份颜色
+            // areaColor: '#f0f0f0',  // 默认省份颜色
+            areaColor: 'rgba(0, 68, 204,0.9)',  // 默认省份颜色
             borderColor: '#000',  // 省份边框颜色
             shadowColor: 'rgba(0, 0, 0, 0.5)',  // 设置阴影颜色
             shadowBlur: 30,  // 模糊程度
@@ -80,30 +82,30 @@ const Map: React.FC = () => {
           select: selectStyle,
           label: {
             show: true,
-            // 灰色
-            color: '#666',
-            emphasis: {
-              show: false,
-            },
+            color: 'rgba(255, 255, 255, 0.8)',
+            fontSize: 10,
+            fontWeight: 'bold',
           },
           regions: currentWatchedProvinces.map((province) => ({
             name: province,
             selected: true,
             select: selectStyle,
-            itemStyle: {
-              areaColor: '#5083fb', // 已观看省份颜色
-            }
+            itemStyle: selectStyle.itemStyle,
+            label: selectStyle.label
           }))
         },        
       };
       // 设置点击事件监听器
       chart.on("click", (params) => {
-        console.log(params); // params 包含点击省份的所有信息
+        // console.log(params); // params 包含点击省份的所有信息
         if (params.name) {
-          setSelectedProvince(params.name); // 设置当前点击的省份
           if (!currentWatchedProvinces.includes(params.name)) {
             setShowVideo(true); // 显示视频播放器
           } else {
+            chart.dispatchAction({
+              type: 'geoSelect',
+              name: params.name,
+            });
             setShowVideo(false); // 显示视频播放器
             toast('该省份已点亮，请选择其他省份', { 
               type: 'success', 
@@ -113,6 +115,7 @@ const Map: React.FC = () => {
               className: 'custom-toast'
             });
           }
+          setSelectedProvince(params.name); // 设置当前点击的省份
         }
       });
 

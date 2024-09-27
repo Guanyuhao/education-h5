@@ -33,8 +33,10 @@ const AutoVideo = forwardRef<AutoVideoHandle, AutoVideoProps>((props, ref) => {
   const [isLoading, setIsLoading] = useState(true); // 控制加载状态
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isMuted, setIsMuted] = useState(true); // 控制视频是否静音
+  const [autoPlayFailed, setAutoPlayFailed] = useState(false); // 自动播放失败标志
+
   const { type = "home", handleVideoReady = Fn, handleVideoEnd = Fn, withLoading = true, loadingType = "gif" } = props;
-  const videoUrl = type === "home" ? "/video/bg-720.mp4" : "/video/map-bg.mp4";
+  const videoUrl = type === "home" ? "/video/bg-720.mp4" : "/video/bg-map-2.mp4";
 
   const handleVideoLoaded = useCallback(() => {
     setIsLoading(false); // 视频加载完毕，关闭加载动画 loading
@@ -55,33 +57,24 @@ const AutoVideo = forwardRef<AutoVideoHandle, AutoVideoProps>((props, ref) => {
       const videoPromise = videoRef.current.play();
       videoPromise
         .then(() => {
+          setAutoPlayFailed(false); // 自动播放成功
           console.info("自动播放视频:success");
           const userAgent = window?.navigator?.userAgent?.toLowerCase();
           const isWeChat = /micromessenger/.test(userAgent);
           if (isWeChat) {
             setIsMuted(false); // 视频播放成功，取消静音
           }
-          // const ctx = new AudioContext()
-          // console.log("ctx:", ctx)
-          // const canAutoPlay = ctx.state === 'running'
-          // ctx.close()
-          // if (canAutoPlay) {
-            // setIsMuted(false); // 视频播放成功，取消静音
-          // } else {
-            // toast.info("当前浏览器不支持自动播音频，请手动播放", {
-            //   position: 'bottom-center',
-            //   autoClose: 2000,
-            // });
-          // }
         })
         .catch((err) => {
-          console.error("自动播放视频成功", err);
+          setAutoPlayFailed(true); // 自动播放失败
+          console.error("自动播放视频失败", err);
         });
     }
   }, [videoRef]);
 
 
   useEffect(() => {
+    // eslint-disable-next-line 
     // const vConsole = new window.VConsole();
     // 检测微信浏览器环境
     if (typeof window !== 'undefined' && typeof window.navigator !== 'undefined') {
@@ -92,7 +85,6 @@ const AutoVideo = forwardRef<AutoVideoHandle, AutoVideoProps>((props, ref) => {
       // @ts-expect-error
       const WeixinJSBridge = window.WeixinJSBridge
       if (isWeChat && typeof window !== 'undefined' && typeof WeixinJSBridge !== 'undefined') {
-        // 微信浏览器，使用 WeixinJSBridge 处理
         WeixinJSBridge.invoke("getNetworkType", {}, function(){
           handlePageInitVideoPlay?.();
         });
@@ -123,6 +115,10 @@ const AutoVideo = forwardRef<AutoVideoHandle, AutoVideoProps>((props, ref) => {
     getMuted: () => isMuted,
   }));
 
+  const handleManualPlay = useCallback(() => {
+    handlePageInitVideoPlay?.();
+  }, [handlePageInitVideoPlay]);
+
   return (
     <>
       {withLoading && loadingType === "normal" && isLoading && <Loading />}
@@ -144,6 +140,15 @@ const AutoVideo = forwardRef<AutoVideoHandle, AutoVideoProps>((props, ref) => {
         <source src={videoUrl} type="video/mp4" />
         浏览器不支持视频播放
       </video>
+      {/* 自动播放失败提示 */}
+      {autoPlayFailed && (
+        <div className="video-overlay">
+          <p className="video-text">点击下方按钮即开启体验</p>
+          <button className="video-button" onClick={handleManualPlay}>
+            开启
+          </button>
+        </div>
+      )}
       {/* <ToastContainer/> */}
     </>
   );
