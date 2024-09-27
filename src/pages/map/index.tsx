@@ -172,9 +172,12 @@ const Map: React.FC = () => {
       <SciFiBackground hasNav hidden={!showMap}>
       <div className='map-container'>
         <div ref={mapRef} className="map"/>
-        {watchedProvinces.length > 0 && <button onClick={exportChartAsImage} className='share-button'>
+        {/* {watchedProvinces.length > 0 && <button onClick={exportChartAsImage} className='share-button'>
           分享点亮地图
-        </button>}
+        </button>} */}
+        <button onClick={exportChartAsImage} className='share-button'>
+          分享点亮地图
+        </button>
       </div>
       <ToastContainer/>
       {/* 播放视频 */}
